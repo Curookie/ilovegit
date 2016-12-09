@@ -1,6 +1,8 @@
 package com.example.curookie.ressystem;
 
+import android.graphics.Color;
 import android.media.Image;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,8 +51,18 @@ public class MainActivity extends AppCompatActivity {
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) { bg.setVisibility(View.VISIBLE); bg.setBackgroundColor(0xff0099cc);}
-                else { bg.setVisibility(View.INVISIBLE);}
+                if(b) { bg.setVisibility(View.VISIBLE); bg.setBackgroundColor(0xff0099cc);
+                    page1.setVisibility(View.VISIBLE);
+                    page2.setVisibility(View.INVISIBLE);
+                    cro.setBase(SystemClock.elapsedRealtime());
+                    cro.start();
+                    cro.setTextColor(Color.BLUE);
+                }
+                else { bg.setVisibility(View.INVISIBLE);
+                    cro.setBase(SystemClock.elapsedRealtime());
+                    cro.stop();
+                    cro.setTextColor(Color.DKGRAY);
+                }
             }
         });
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -89,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         btnGoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bg.setBackgroundColor(0xff0022cc);
                 page1.setVisibility(View.INVISIBLE);
                 page2.setVisibility(View.VISIBLE);
             }

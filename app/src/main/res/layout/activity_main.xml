@@ -230,6 +230,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/holo_orange_dark"
+            android:padding="10sp">
+
+            <TextView
+                android:text="시간 예약"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textAlignment="center" />
+
+
+            </FrameLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -257,25 +276,6 @@
                         android:layout_weight="1" />
                 </RadioGroup>
             </LinearLayout>
-
-            <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/holo_orange_dark"
-            android:padding="10sp">
-
-            <TextView
-                android:text="시간 예약"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:textAlignment="center" />
-
-
-            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
