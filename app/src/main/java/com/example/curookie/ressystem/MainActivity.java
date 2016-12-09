@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     TimePicker tp;
     EditText num1, num2, num3;
     RadioGroup rg, rg2;
+    RadioButton rb1, rb4;
     ImageView iv;
     TextView tot, sale, price;
     FrameLayout bg;
@@ -68,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
                     hour=-1;
                     min=-1;
                     flag=0;
+                    rb1.setChecked(true);
+                    rb4.setChecked(true);
+                    num1.setText(null);
+                    num2.setText(null);
+                    num3.setText(null);
+                    tot.setText("총 명수 : ");
+                    sale.setText("할인 금액 : ");
+                    price.setText("결제 금액 : ");
                 }
             }
         });
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         btnGoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bg.setBackgroundColor(0xff0022cc);
+                bg.setBackgroundColor(0xff553300);
                 page1.setVisibility(View.INVISIBLE);
                 page2.setVisibility(View.VISIBLE);
             }
@@ -188,5 +198,7 @@ public class MainActivity extends AppCompatActivity {
         iv = (ImageView)findViewById(R.id.imageView);
         page1 = (LinearLayout)findViewById(R.id.page);
         page2 = (LinearLayout)findViewById(R.id.page2);
+        rb1 =(RadioButton)findViewById(R.id.radioButton);
+        rb4 =(RadioButton)findViewById(R.id.radioButton4);
     }
 }
