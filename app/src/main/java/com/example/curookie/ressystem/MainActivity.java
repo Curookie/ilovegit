@@ -1,17 +1,22 @@
 package com.example.curookie.ressystem;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Chronometer;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     TimePicker tp;
     EditText num1, num2, num3;
     RadioGroup rg, rg2;
+    ImageView iv;
     TextView tot, sale, price;
     FrameLayout bg;
     LinearLayout page1, page2;
@@ -39,6 +45,55 @@ public class MainActivity extends AppCompatActivity {
         setTitle("놀이동산 예약시스템");
 
         initId();
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) { bg.setVisibility(View.VISIBLE); bg.setBackgroundColor(0xff0099cc);}
+                else { bg.setVisibility(View.INVISIBLE);}
+            }
+        });
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i==R.id.radioButton) iv.setImageResource(R.drawable.img1);
+                else if(i==R.id.radioButton2) iv.setImageResource(R.drawable.img2);
+                else if(i==R.id.radioButton3) iv.setImageResource(R.drawable.img3);
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!num1.getText().toString().matches("^[0-9]+$")||!num2.getText().toString().matches("^[0-9]+$")||!num3.getText().toString().matches("^[0-9]+$")) {
+                    Toast.makeText(getApplicationContext(),"인원을 입력하세요",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                double s=0.05;
+                if(rg.getCheckedRadioButtonId()==R.id.radioButton2) s=0.1;
+                else if (rg.getCheckedRadioButtonId()==R.id.radioButton3) s=0.2;
+
+                int n1 = Integer.parseInt(num1.getText().toString());
+                int n2 = Integer.parseInt(num2.getText().toString());
+                int n3 = Integer.parseInt(num3.getText().toString());
+
+                int sal = (int) Math.round((n1*15000+n2*12000+n3*8000)*s/10)*10;
+                int real = (n1*15000+n2*12000+n3*8000)-sal;
+                tot.setText("총 명수 : "+(n1+n2+n3));
+                sale.setText("할인 금액 : "+sal);
+                price.setText("결제 금액 : "+real);
+
+            }
+        });
+
+        btnGoTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                page1.setVisibility(View.INVISIBLE);
+                page2.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void initId() {
@@ -59,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         sale = (TextView) findViewById(R.id.sale);
         price = (TextView) findViewById(R.id.price);
         bg = (FrameLayout) findViewById(R.id.bg);
+        iv = (ImageView)findViewById(R.id.imageView);
         page1 = (LinearLayout)findViewById(R.id.page);
         page2 = (LinearLayout)findViewById(R.id.page2);
     }
