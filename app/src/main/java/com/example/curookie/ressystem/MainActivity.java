@@ -1,8 +1,11 @@
 package com.example.curookie.ressystem;
 
 import android.graphics.Color;
+import android.icu.text.DecimalFormat;
 import android.media.Image;
+import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rb1, rb4;
     ImageView iv;
     TextView tot, sale, price;
-    FrameLayout bg;
+    FrameLayout fm1, fm2, bg;
     LinearLayout page1, page2;
     int year=-1;
     int mon=-1;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) { bg.setVisibility(View.VISIBLE); bg.setBackgroundColor(0xff0099cc);
+                if(b) { bg.setVisibility(View.VISIBLE); bg.setBackgroundColor(Color.parseColor("#FFEBCD"));
                     page1.setVisibility(View.VISIBLE);
                     page2.setVisibility(View.INVISIBLE);
                     cro.setBase(SystemClock.elapsedRealtime());
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 if(!num1.getText().toString().matches("^[0-9]+$")||!num2.getText().toString().matches("^[0-9]+$")||!num3.getText().toString().matches("^[0-9]+$")) {
@@ -105,11 +109,14 @@ public class MainActivity extends AppCompatActivity {
                 int n2 = Integer.parseInt(num2.getText().toString());
                 int n3 = Integer.parseInt(num3.getText().toString());
 
+                DecimalFormat df = new DecimalFormat("#,##0");
+
+
                 int sal = (int) Math.round((n1*15000+n2*12000+n3*8000)*s/10)*10;
                 int real = (n1*15000+n2*12000+n3*8000)-sal;
-                tot.setText("총 명수 : "+(n1+n2+n3));
-                sale.setText("할인 금액 : "+sal);
-                price.setText("결제 금액 : "+real);
+                tot.setText("총 명수 : "+df.format((n1+n2+n3)));
+                sale.setText("할인 금액 : "+df.format(sal));
+                price.setText("결제 금액 : "+df.format(real));
                 flag=1;
             }
         });
@@ -117,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         btnGoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bg.setBackgroundColor(0xff553300);
+                bg.setBackgroundColor(Color.parseColor("#E0FFFF"));
                 page1.setVisibility(View.INVISIBLE);
                 page2.setVisibility(View.VISIBLE);
             }
@@ -153,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         btnGoPeo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bg.setBackgroundColor(0xff0099cc);
+                bg.setBackgroundColor(Color.parseColor("#FFEBCD"));
                 page1.setVisibility(View.VISIBLE);
                 page2.setVisibility(View.INVISIBLE);
             }
@@ -200,5 +207,9 @@ public class MainActivity extends AppCompatActivity {
         page2 = (LinearLayout)findViewById(R.id.page2);
         rb1 =(RadioButton)findViewById(R.id.radioButton);
         rb4 =(RadioButton)findViewById(R.id.radioButton4);
+        fm1 = (FrameLayout)findViewById(R.id.fm1);
+        fm2 = (FrameLayout)findViewById(R.id.fm2);
+        fm1.setBackgroundColor(Color.parseColor("#F9966B"));
+        fm2.setBackgroundColor(Color.parseColor("#F9966B"));
     }
 }
