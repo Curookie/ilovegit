@@ -38,7 +38,8 @@
         android:layout_height="match_parent"
         android:background="@android:color/holo_orange_light"
         android:layout_weight="1"
-        android:id="@+id/bg">
+        android:id="@+id/bg"
+        android:visibility="invisible">
 
         <LinearLayout
             android:orientation="vertical"

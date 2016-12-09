@@ -62,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
                     cro.setBase(SystemClock.elapsedRealtime());
                     cro.stop();
                     cro.setTextColor(Color.DKGRAY);
+                    year=-1;
+                    mon=-1;
+                    day=-1;
+                    hour=-1;
+                    min=-1;
+                    flag=0;
                 }
             }
         });
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 tot.setText("총 명수 : "+(n1+n2+n3));
                 sale.setText("할인 금액 : "+sal);
                 price.setText("결제 금액 : "+real);
-
+                flag=1;
             }
         });
 
@@ -107,6 +113,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rg2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i==R.id.radioButton4) {
+                    cv.setVisibility(View.VISIBLE);
+                    tp.setVisibility(View.INVISIBLE);
+                } else if (i==R.id.radioButton5) {
+                    cv.setVisibility(View.INVISIBLE);
+                    tp.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
+                year=i; mon=i1; day=i2;
+            }
+        });
+
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+                hour=i; min=i1;
+            }
+        });
+
+        btnGoPeo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bg.setBackgroundColor(0xff0099cc);
+                page1.setVisibility(View.VISIBLE);
+                page2.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        btnTimeSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag==0) {
+                    Toast.makeText(getApplicationContext(),"인원예약을 먼저 하세요",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(year==-1||min==-1) {
+                    Toast.makeText(getApplicationContext(),"날짜와 시간을 입력하세요!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(getApplicationContext(),year+"-"+mon+"-"+day+" "+hour+":"+min+" 예약완료되었습니다.",Toast.LENGTH_SHORT).show();
+                cro.stop();
+                cro.setTextColor(Color.DKGRAY);
+            }
+        });
     }
 
     private void initId() {
